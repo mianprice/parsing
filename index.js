@@ -2,7 +2,6 @@ const Promise = require('bluebird');
 const rp = require('request-promise');
 const fs = require('fs-extra');
 const _ = require('lodash');
-// const h2j = require('html2json').html2json;
 
 fs.readJson('bookmarks.json')
     .then(result => {
@@ -21,7 +20,6 @@ fs.readJson('bookmarks.json')
             return f.name;
         });
         let root_folder_children = root_folders.map(f => {
-            // console.log(f);
             return f.children;
         });
         let master_links_array = [];
@@ -29,7 +27,6 @@ fs.readJson('bookmarks.json')
             collect_links(master_links_array, element, root_folder_children[idx]);
         });
         let requests_setup = master_links_array.map(link => {
-            // console.log(link);
             let split_link = link.split('|||');
             return {
                 dir_string: split_link[0],
@@ -40,12 +37,6 @@ fs.readJson('bookmarks.json')
             return !(_.includes(element.url,'chrome://') || _.includes(element.url,'localhost') || _.includes(element.url,'ftp://') || _.includes(element.url,'whichasteroidbroughtmehere.com') || _.includes(element.url,'50.23.99.148') || _.includes(element.url,'algorithmsandme'));
         });
         console.log(requests_setup.length);
-        // let root_folder_children_counts = root_folder_children.map(f => {
-        //     return f.length;
-        // });
-        // console.log(roots);
-        // console.log(root_folder_names);
-        // console.log(root_folder_children_counts);
         return Promise.mapSeries(requests_setup, element => {
             return Promise.all([
                 element,
