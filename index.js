@@ -33,9 +33,9 @@ fs.readJson('bookmarks.json')
                 url: split_link[1]
             };
         });
-        requests_setup = requests_setup.filter((element) => {
-            return !(_.includes(element.url,'chrome://') || _.includes(element.url,'localhost') || _.includes(element.url,'ftp://') || _.includes(element.url,'whichasteroidbroughtmehere.com') || _.includes(element.url,'50.23.99.148') || _.includes(element.url,'algorithmsandme'));
-        });
+//        requests_setup = requests_setup.filter((element) => {
+//            return !(_.includes(element.url,'chrome://') || _.includes(element.url,'localhost') || _.includes(element.url,'ftp://') || _.includes(element.url,'whichasteroidbroughtmehere.com') || _.includes(element.url,'50.23.99.148') || _.includes(element.url,'algorithmsandme'));
+//        });
         console.log(requests_setup.length);
         return Promise.mapSeries(requests_setup, element => {
             return Promise.all([
